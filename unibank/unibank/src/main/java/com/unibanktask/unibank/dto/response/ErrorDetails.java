@@ -1,4 +1,4 @@
-package com.unibanktask.unibank.dto;
+package com.unibanktask.unibank.dto.response;
 
 import lombok.Getter;
 

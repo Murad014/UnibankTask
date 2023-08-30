@@ -1,7 +1,7 @@
 package com.unibanktask.unibank.exception;
 
 
-import com.unibanktask.unibank.dto.ErrorDetails;
+import com.unibanktask.unibank.dto.response.ErrorDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -12,7 +12,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
