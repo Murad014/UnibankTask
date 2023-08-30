@@ -11,6 +11,7 @@ import java.util.List;
 public class UniquePinValidator implements ConstraintValidator<UniquePin, String> {
 
     private final UserRepository userRepository;
+    private boolean isUnique;
 
     @Autowired
     public UniquePinValidator(UserRepository userRepository){
@@ -19,11 +20,13 @@ public class UniquePinValidator implements ConstraintValidator<UniquePin, String
 
     @Override
     public void initialize(UniquePin constraintAnnotation) {
+        this.isUnique = constraintAnnotation.isUnique();
+
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
     @Override
     public boolean isValid(String pin, ConstraintValidatorContext constraintValidatorContext) {
-        return !userRepository.existsByPin(pin);
+        return isUnique == userRepository.existsByPin(pin);
     }
 }

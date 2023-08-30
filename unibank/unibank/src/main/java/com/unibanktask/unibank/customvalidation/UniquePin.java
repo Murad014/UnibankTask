@@ -13,6 +13,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = UniquePinValidator.class)
 public @interface UniquePin {
     String message() default "PIN already exists";
+    boolean isUnique() default false;
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

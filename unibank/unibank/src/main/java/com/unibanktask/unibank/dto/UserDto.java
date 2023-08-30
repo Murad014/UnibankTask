@@ -34,7 +34,6 @@ public class UserDto {
     @Size(min = 4, message = "PIN must have at least 4 digits")
     private String pin;
 
-
     @IsStrongPassword
     private String password;
 }

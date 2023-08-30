@@ -10,5 +10,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByPin(String pin);
 
-//    List<User> findByPin(int pin);
 }
