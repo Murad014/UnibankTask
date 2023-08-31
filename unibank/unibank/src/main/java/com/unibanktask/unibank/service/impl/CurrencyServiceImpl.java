@@ -24,7 +24,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         return random.nextDouble() * 10;
     }
 
-    @Scheduled(fixedRate = 1000) // 60 seconds = 1 minute
+    @Scheduled(fixedRate = 60000) // 1 minn
     public CurrencyResponse getCurrencyRateFromCache() {
         List<String> currencyPairs = Arrays.asList("USD/AZN", "AZN/TL");
         List<CurrencyRates> rates = new ArrayList<>();
