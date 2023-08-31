@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
 @OpenAPIDefinition(
-        info = @Info(title="Unibank task.", version="1.0", description="NOTE: SORRY about test cases. Nowadays I am overloaded and I had not time to spend write test cases. BY Murad Guliyev. email: quliyev.murad@yahoo.com")
+        info = @Info(title="Unibank task.", version="1.0", description="NOTE: SORRY about test cases. Nowadays I am overloaded and I had not time to write test cases. BY Murad Guliyev. email: quliyev.murad@yahoo.com")
 )
 public class SwaggerConfig {
 
