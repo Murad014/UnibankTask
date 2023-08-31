@@ -24,9 +24,8 @@ public class TransferController {
     }
 
 
-    @PutMapping("/transfer/{userId}")
+    @PostMapping("/transfer/")
     public ResponseEntity<TransferResponseDto> transferOperation(
-            @PathVariable("userId") Long userId,
             @RequestBody TransferRequest transferRequest
             )
     {

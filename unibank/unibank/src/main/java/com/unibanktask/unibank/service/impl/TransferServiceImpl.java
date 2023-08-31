@@ -4,8 +4,10 @@ import com.unibanktask.unibank.dto.TransferDto;
 import com.unibanktask.unibank.entity.Account;
 import com.unibanktask.unibank.entity.Transfer;
 import com.unibanktask.unibank.exception.ResourceNotFoundException;
+import com.unibanktask.unibank.exception.TransferValidateException;
 import com.unibanktask.unibank.repository.AccountRepository;
 import com.unibanktask.unibank.repository.TransferRepository;
+import com.unibanktask.unibank.security.JwtTokenProvider;
 import com.unibanktask.unibank.service.TransferService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +35,18 @@ public class TransferServiceImpl implements TransferService {
     public TransferDto createTransfer(Long senderAccountId,
                                       Long receiverAccountId, BigDecimal amount) {
 
+
+
         Account senderAccount = accountRepository.findById(senderAccountId)
-                .orElseThrow(() -> new ResourceNotFoundException("Sender Account 2302", "senderPin", senderAccountId));
+                .orElseThrow(() -> new ResourceNotFoundException("Sender Account", "senderPin",
+                        String.valueOf(senderAccountId)));
+
+        if(!senderAccount.getUser().getPin().equals(JwtTokenProvider.userPin))
+            throw new TransferValidateException("This is not your account that you want to send!");
 
         Account receiverAccount = accountRepository.findById(receiverAccountId)
-                .orElseThrow(() -> new ResourceNotFoundException("Receiver Account 0211", "id", receiverAccountId));
+                .orElseThrow(() -> new ResourceNotFoundException("Receiver Account", "id",
+                        String.valueOf(receiverAccountId)));
 
         Transfer transfer = new Transfer();
         transfer.setAmount(amount);

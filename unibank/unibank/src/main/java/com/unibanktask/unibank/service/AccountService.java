@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface AccountService {
 
-    AccountDto createAccount(AccountDto accountDto, Long userId);
-    List<AccountDto> fetchAllAccountsByUserId(Long userId);
+    AccountDto createAccount(AccountDto accountDto, String userPin);
+    List<AccountDto> fetchAllAccountsByUserPin(String userPin);
 
     void transferProccess(Long receiverAccoundId, Long senderAccountId, BigDecimal amount);
 
