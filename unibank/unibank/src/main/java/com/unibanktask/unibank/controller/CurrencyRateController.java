@@ -2,6 +2,7 @@ package com.unibanktask.unibank.controller;
 
 import com.unibanktask.unibank.dto.response.CurrencyResponse;
 import com.unibanktask.unibank.service.CurrencyService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -24,6 +25,7 @@ public class CurrencyRateController {
     }
 
     @GetMapping
+    @Operation(summary = "Get Currency Rate")
     public ResponseEntity<CurrencyResponse> getCurrencyRate() {
         CurrencyResponse response = currencyService.getCurrencyRateFromCache();
         return new ResponseEntity<>(response, HttpStatus.OK);

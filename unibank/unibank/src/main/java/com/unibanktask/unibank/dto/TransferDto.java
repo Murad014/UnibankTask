@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 public class TransferDto {
 
-    private Long id;
+//    private Long id;
 
     private Account senderAccount;
 

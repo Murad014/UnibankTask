@@ -2,6 +2,7 @@ package com.unibanktask.unibank.service.impl;
 
 
 import com.unibanktask.unibank.dto.UserDto;
+import com.unibanktask.unibank.dto.request.LoginRequest;
 import com.unibanktask.unibank.entity.Role;
 import com.unibanktask.unibank.entity.User;
 import com.unibanktask.unibank.repository.RoleRepository;
@@ -52,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
         Set<Role> roles = new HashSet<>();
 
-        Role userRole = roleRepository.findByName("ROLE_USER").orElse(new Role());
+        Role userRole = roleRepository.findByName("ROLE_USER").orElse(null);
         roles.add(userRole);
 
         user.setRoles(roles);
@@ -62,16 +63,14 @@ public class UserServiceImpl implements UserService {
         return "User created successfully";
     }
     @Override
-    public String login(UserDto loginDto) {
+    public String login(LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                loginDto.getPin(), loginDto.getPassword()));
+                loginRequest.getPin(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String token = jwtTokenProvider.generateToken(authentication);
-
-        return token;
+        return jwtTokenProvider.generateToken(authentication);
     }
 
     public UserDto entityToDto(User user){

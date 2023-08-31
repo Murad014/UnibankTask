@@ -17,6 +17,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountDto {
-    private Long id;
+//    private Long id;
     private BigDecimal balance = BigDecimal.valueOf(0.00);
 }

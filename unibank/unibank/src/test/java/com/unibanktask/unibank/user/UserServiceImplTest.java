@@ -1,6 +1,7 @@
 package com.unibanktask.unibank.user;
 
 import com.unibanktask.unibank.dto.UserDto;
+import com.unibanktask.unibank.dto.request.LoginRequest;
 import com.unibanktask.unibank.entity.Role;
 import com.unibanktask.unibank.entity.User;
 import com.unibanktask.unibank.repository.RoleRepository;
@@ -54,9 +55,9 @@ public class UserServiceImplTest {
     @Test
     public void testLogin() {
 
-        UserDto loginDto = new UserDto();
-        loginDto.setPin("userPin");
-        loginDto.setPassword("userPassword");
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setPin("userPin");
+        loginRequest.setPassword("userPassword");
 
         Authentication authentication = mock(Authentication.class);
         when(authenticationManager.authenticate(any())).thenReturn(authentication);
@@ -64,7 +65,7 @@ public class UserServiceImplTest {
         when(jwtTokenProvider.generateToken(authentication)).thenReturn("mockedToken");
 
         // When
-        String token = userService.login(loginDto);
+        String token = userService.login(loginRequest);
 
         // Then
         verify(authenticationManager).authenticate(any());

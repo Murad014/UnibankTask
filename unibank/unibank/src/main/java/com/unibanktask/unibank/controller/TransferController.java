@@ -5,6 +5,7 @@ import com.unibanktask.unibank.dto.request.TransferRequest;
 import com.unibanktask.unibank.dto.response.TransferResponseDto;
 import com.unibanktask.unibank.service.AccountService;
 import com.unibanktask.unibank.service.TransferService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ public class TransferController {
 
 
     @PostMapping("/transfer/")
+    @Operation(summary = "Transfer Operation")
     public ResponseEntity<TransferResponseDto> transferOperation(
             @RequestBody TransferRequest transferRequest
             )

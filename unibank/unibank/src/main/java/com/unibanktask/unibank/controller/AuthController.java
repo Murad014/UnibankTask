@@ -2,7 +2,10 @@ package com.unibanktask.unibank.controller;
 
 import com.unibanktask.unibank.dto.JWTAuthResponse;
 import com.unibanktask.unibank.dto.UserDto;
+import com.unibanktask.unibank.dto.request.LoginRequest;
 import com.unibanktask.unibank.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,9 +26,11 @@ public class AuthController {
     }
 
     // Build Login REST API
-    @PostMapping(value = {"/login", "/signin"})
-    public ResponseEntity<JWTAuthResponse> login(@RequestBody UserDto loginDto){
-        String token = userService.login(loginDto);
+    @PostMapping(value = {"/login"})
+    @Operation(summary = "Login")
+    @SecurityRequirement(name = "jwt")
+    public ResponseEntity<JWTAuthResponse> login(@RequestBody LoginRequest loginRequest){
+        String token = userService.login(loginRequest);
 
         JWTAuthResponse jwtAuthResponse = new JWTAuthResponse();
         jwtAuthResponse.setAccessToken(token);
@@ -34,7 +39,8 @@ public class AuthController {
     }
 
     // Build Register REST API
-    @PostMapping(value = {"/register", "/signup"})
+    @PostMapping(value = {"/register"})
+    @Operation(summary = "Register")
     public ResponseEntity<String> register(@Valid @RequestBody UserDto userDto){
         String response = userService.createUser(userDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
