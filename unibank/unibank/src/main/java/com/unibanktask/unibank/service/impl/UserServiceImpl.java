@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
     private JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
     public UserServiceImpl(ModelMapper modelMapper,
                            AuthenticationManager authenticationManager,
                            UserRepository userRepository,
@@ -47,14 +48,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String createUser(UserDto userDto) {
-//        String hashedPassword = bCryptPasswordEncoder.encode(userDto.getPassword());
         User user = dtoToEntity(userDto);
 
         Set<Role> roles = new HashSet<>();
-////        Role role = new Role();
-////        role.setName("ROLE_USER");
-//        roleRepository.save(role);
-        Role userRole = roleRepository.findByName("ROLE_USER").orElse(null);
+
+        Role userRole = roleRepository.findByName("ROLE_USER").orElse(new Role());
         roles.add(userRole);
 
         user.setRoles(roles);
@@ -76,11 +74,11 @@ public class UserServiceImpl implements UserService {
         return token;
     }
 
-    private UserDto entityToDto(User user){
+    public UserDto entityToDto(User user){
         return  modelMapper.map(user, UserDto.class);
     }
 
-    private User dtoToEntity(UserDto userDto){
+    public User dtoToEntity(UserDto userDto){
         return modelMapper.map(userDto, User.class);
     }
 

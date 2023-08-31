@@ -2,6 +2,9 @@ package com.unibanktask.unibank.tools;
 
 import com.unibanktask.unibank.dto.UserDto;
 import com.unibanktask.unibank.entity.User;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 
 public class CreateClasses {
     public static User createUser(){
