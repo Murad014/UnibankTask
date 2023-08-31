@@ -60,11 +60,8 @@ public class SecurityConfig{
 
                                 .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
-//                                .requestMatchers(new AntPathRequestMatcher("/swagger-resources/**")).permitAll()
-//                                .requestMatchers(new AntPathRequestMatcher("/configuration/security")).permitAll()
-//                                .requestMatchers(new AntPathRequestMatcher("/swagger-ui.html")).permitAll()
-//                                .requestMatchers(new AntPathRequestMatcher("/webjars/**")).permitAll()
-//                                .requestMatchers(new AntPathRequestMatcher("/api/v1/currency/**")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/v1/currency")).permitAll()
+
                                 .anyRequest().authenticated()
 
                 ).exceptionHandling( exception -> exception
