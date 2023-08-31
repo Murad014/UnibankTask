@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
     List<Account> findByUserId(Long userId);
-    Optional<Account> findByUserPin(String userPin);
+    List<Account> findByUserPin(String userPin);
+    List<Account> findByUserPinAndIsActiveTrue(String userPin);
 
 }

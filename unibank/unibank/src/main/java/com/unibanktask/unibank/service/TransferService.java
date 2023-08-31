@@ -9,7 +9,8 @@ import java.math.BigDecimal;
 public interface TransferService {
 
     TransferDto createTransfer(Long senderAccountId,
-                               Long receiverAccountId, BigDecimal amount);
+                               Long receiverAccountId,
+                               BigDecimal amount);
 
 
 

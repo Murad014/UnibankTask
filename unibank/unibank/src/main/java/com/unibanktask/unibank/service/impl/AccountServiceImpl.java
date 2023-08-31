@@ -36,9 +36,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountDto createAccount(AccountDto accountDto, Long userId) {
-        User userFromDB = userRepository.findById(userId).orElseThrow(
-                () -> new ResourceNotFoundException("User", "id", userId)
+    public AccountDto createAccount(AccountDto accountDto, String userPin) {
+        User userFromDB = userRepository.findByPin(userPin).orElseThrow(
+                () -> new ResourceNotFoundException("User", "id", userPin)
         );
         Account account = dtoToEntity(accountDto);
         account.setUser(userFromDB);
@@ -46,12 +46,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AccountDto> fetchAllAccountsByUserId(Long userId) {
-        User userFromDB = userRepository.findById(userId).orElseThrow(
-                () -> new ResourceNotFoundException("User", "id", userId)
+    public List<AccountDto> fetchAllAccountsByUserPin(String userPin) {
+        User userFromDB = userRepository.findByPin(userPin).orElseThrow(
+                () -> new ResourceNotFoundException("User", "id", userPin)
         );
 
-        return accountRepository.findByUserId(userId)
+        return accountRepository.findByUserPin(userPin)
                 .stream()
                 .map(this::entityToDto)
                 .collect(Collectors.toList());
@@ -61,10 +61,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void transferProccess(Long receiverAccoundId, Long senderAccountId, BigDecimal amount) {
         Account senderAccount = accountRepository.findById(senderAccountId).orElseThrow(
-                () -> new ResourceNotFoundException("Sender Account 01", "pin", senderAccountId)
+                () -> new ResourceNotFoundException("Sender Account 01", "pin", String.valueOf(senderAccountId))
         );
         Account receiverAccount = accountRepository.findById(receiverAccoundId).orElseThrow(
-                () -> new ResourceNotFoundException("Receiver Account 02", "pin", receiverAccoundId)
+                () -> new ResourceNotFoundException("Receiver Account 02", "pin", String.valueOf(receiverAccoundId))
         );
 
         int compareResult = senderAccount.getBalance().compareTo(amount);

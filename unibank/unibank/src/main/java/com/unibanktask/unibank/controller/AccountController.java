@@ -1,6 +1,7 @@
 package com.unibanktask.unibank.controller;
 
 import com.unibanktask.unibank.dto.AccountDto;
+import com.unibanktask.unibank.security.JwtTokenProvider;
 import com.unibanktask.unibank.service.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 public class AccountController {
-
     private final AccountService accountService;
 
     @Autowired
@@ -21,19 +21,18 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @PostMapping("/users/{id}/accounts")
-    public ResponseEntity<AccountDto> createAccount(@RequestBody AccountDto accountDto,
-                                                    @PathVariable("id") Long userId){
+    @PostMapping("/users/accounts")
+    public ResponseEntity<AccountDto> createAccount(@RequestBody AccountDto accountDto){
         return new ResponseEntity<>(
-                accountService.createAccount(accountDto, userId),
+                accountService.createAccount(accountDto, JwtTokenProvider.userPin),
                 HttpStatus.CREATED
         );
     }
 
-    @GetMapping("/users/{id}/accounts")
-    public ResponseEntity<List<AccountDto>> fetchAllAccounts(@PathVariable("id") Long userId){
+    @GetMapping("/users/accounts")
+    public ResponseEntity<List<AccountDto>> fetchAllAccounts(){
         return new ResponseEntity<>(
-                accountService.fetchAllAccountsByUserId(userId),
+                accountService.fetchAllAccountsByUserPin(JwtTokenProvider.userPin),
                 HttpStatus.OK);
     }
 
