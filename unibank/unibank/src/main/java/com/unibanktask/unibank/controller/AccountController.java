@@ -3,6 +3,7 @@ package com.unibanktask.unibank.controller;
 import com.unibanktask.unibank.dto.AccountDto;
 import com.unibanktask.unibank.security.JwtTokenProvider;
 import com.unibanktask.unibank.service.AccountService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
+
 public class AccountController {
     private final AccountService accountService;
 
@@ -20,6 +22,10 @@ public class AccountController {
     public AccountController(AccountService accountService){
         this.accountService = accountService;
     }
+
+    @Operation(summary = "Create Account", description = "Reference to userPin." +
+            "Actually this process operated by Admin. But Documentation that you provided there is not task about it" +
+            " so I allow creates accounts to users and set balance by themselves in order to simply.")
 
     @PostMapping("/users/accounts")
     public ResponseEntity<AccountDto> createAccount(@RequestBody AccountDto accountDto){
@@ -30,6 +36,7 @@ public class AccountController {
     }
 
     @GetMapping("/users/accounts")
+    @Operation(summary = "Fetch All Accounts", description = "Reference to userPin")
     public ResponseEntity<List<AccountDto>> fetchAllAccounts(){
         return new ResponseEntity<>(
                 accountService.fetchAllAccountsByUserPin(JwtTokenProvider.userPin),

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
-    private Long id;
+//    private Long id;
 
     @NotBlank
     @NotEmpty
