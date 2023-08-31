@@ -25,7 +25,7 @@ public class CurrencyRateController {
     }
 
     @GetMapping
-    @Operation(summary = "Get Currency Rate")
+    @Operation(summary = "Get Currency Rate", description = "I used Caching, and Schedule to get Rates")
     public ResponseEntity<CurrencyResponse> getCurrencyRate() {
         CurrencyResponse response = currencyService.getCurrencyRateFromCache();
         return new ResponseEntity<>(response, HttpStatus.OK);
